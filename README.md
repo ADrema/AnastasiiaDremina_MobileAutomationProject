@@ -1,4 +1,21 @@
 # AnastasiiaDremina_MobileAutomationProject
+Homework3
+1.	Rewrite (complete) Driver using “singleton” pattern. Are there any advantages?
+The only one driver instance is created at the moment.
+No ability to execute tests in parallel, but this is not required
+2.	Suggest improvements for .properties reading. What are the purposes?
+The property can be defined directly from test:
+1.	Before class with prepareDriver() method is moved to test
+2.	Enum is set as a parameter for prepareDriver() method
+3.	Add checks of other fields and their titles (Contact Name, Contact phone) in “native” test
+4.	Optional: Add keyboard presence check  in “native” test.
+5.	Which checks would you place in the “web” test?
+-	Url
+-	Page Title
+-	Response code (Need additional libraries, no ability to do it only with selenium)
+6.	Implement checks for “web” test in code and try to use.
+
+Homework2
 1.	Setup project that has been discussed in the class. Make sure you can run both tests (native and web) successfully.
 2.	For existing native mobile autotest try to use another locator (xpath, classname, ?). Define these locators using Appium Inspector. Are there any difference with id version?
 Additional row “Using%” in logs, collected by Appium in case of defining by ID or ClassName	 
