@@ -6,8 +6,8 @@ No ability to execute tests in parallel, but this is not required
 2.	Suggest improvements for .properties reading. What are the purposes?
 	The property can be defined directly from test:
 	Code with annotation @Before class  with prepareDriver() method is moved to test;
-	Enums with links to different properties files are created 
-	And Enum is set as a parameter for prepareDriver() method;
+	Enums with links to different properties files are created.
+	Also, Enum is set as a parameter for prepareDriver() method;
 3.	Add checks of other fields and their titles (Contact Name, Contact phone) in “native” test
 4.	Optional: Add keyboard presence check  in “native” test.
 5.	Which checks would you place in the “web” test?
