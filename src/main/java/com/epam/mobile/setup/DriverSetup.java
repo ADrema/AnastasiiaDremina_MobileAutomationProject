@@ -67,10 +67,10 @@ public class DriverSetup extends TestProperties {
         switch (TEST_PLATFORM) {
             case "Android":
                 capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, DEVICE_NAME); // default Android emulator
-                browserName = "Chrome";
+                browserName = CHROME.browserName;
                 break;
             case "iOS":
-                browserName = "Safari";
+                browserName = SAFARI.browserName;
                 break;
             default:
                 throw new Exception("Unknown mobile platform");
