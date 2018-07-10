@@ -2,6 +2,8 @@ package com.epam.mobile.setup;
 
 import com.epam.mobile.enumObjects.BrowsersEnum;
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.remote.MobileCapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -12,6 +14,7 @@ import java.net.URL;
 import java.util.Properties;
 
 import static com.epam.mobile.enumObjects.BrowsersEnum.*;
+import static io.appium.java_client.remote.MobileCapabilityType.*;
 
 /**
  * Initialize a driver with test properties
@@ -76,21 +79,21 @@ public class DriverSetup extends TestProperties {
                 throw new Exception("Unknown mobile platform");
         }
 
-        capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, TEST_PLATFORM);
+        capabilities.setCapability(PLATFORM_NAME, TEST_PLATFORM);
 
         // Setup type of application: mobile, webTests (or hybrid)
         if (AUT != null && SUT == null) {
             // Native
             File app = new File(AUT);
-            capabilities.setCapability(MobileCapabilityType.APP, app.getAbsolutePath());
+            capabilities.setCapability(APP, app.getAbsolutePath());
             capabilities.setCapability("appPackage", APP_PACKAGE);
             capabilities.setCapability("appActivity", APP_ACTIVITY);
-            capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, TEST_PLATFORM_VERSION);
+            capabilities.setCapability(PLATFORM_VERSION, TEST_PLATFORM_VERSION);
             capabilities.setCapability(MobileCapabilityType.UDID, UDID);
         } else if (SUT != null && AUT == null) {
             // Web
             capabilities.setCapability("chromedriverExecutableDir", System.getProperty("user.dir") + "\\src\\main\\resources\\driver");
-            capabilities.setCapability(MobileCapabilityType.BROWSER_NAME, browserName);
+            capabilities.setCapability(BROWSER_NAME, browserName);
         } else {
             throw new Exception("Unclear type of mobile app");
         }
@@ -98,6 +101,21 @@ public class DriverSetup extends TestProperties {
         if (driverSingle == null) {
             driverSingle = new AppiumDriver(new URL(DRIVER), capabilities);
         }
+
+
+        // Init driver for local Appium server with capabilities
+        switch (TEST_PLATFORM) {
+            case "Android":
+                driverSingle = new AndroidDriver(new URL(DRIVER), capabilities);
+                break;
+            case "iOS":
+                driverSingle = new IOSDriver(new URL(DRIVER), capabilities);
+                break;
+            default:
+                throw new Exception("Unknown mobile platform");
+        }
+
+
 
         // Set an object to handle timeouts
         if (waitSingle == null) {
