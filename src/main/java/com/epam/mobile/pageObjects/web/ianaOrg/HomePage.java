@@ -44,8 +44,9 @@ public class HomePage {
     public void checkUrl(){
         assertEquals(driver.getCurrentUrl(), pageUrl);
     }
+
     //Check that header is Visible
     public void checkPageHeaderIsVisible(){
-        driver.findElement(header).isDisplayed();
+        assertTrue(driver.findElement(header).isDisplayed());
     }
 }
