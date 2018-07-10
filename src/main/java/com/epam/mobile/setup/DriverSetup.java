@@ -1,6 +1,5 @@
 package com.epam.mobile.setup;
 
-import com.epam.mobile.enumObjects.BrowsersEnum;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.ios.IOSDriver;
@@ -9,11 +8,11 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 import java.util.Properties;
 
-import static com.epam.mobile.enumObjects.BrowsersEnum.*;
+import static com.epam.mobile.enumObjects.BrowsersEnum.CHROME;
+import static com.epam.mobile.enumObjects.BrowsersEnum.SAFARI;
 import static io.appium.java_client.remote.MobileCapabilityType.*;
 
 /**
@@ -25,9 +24,9 @@ public class DriverSetup extends TestProperties {
     private static WebDriverWait waitSingle;
 
     protected DesiredCapabilities capabilities;
+    protected String SUT; // site under testing
     // Properties to be read
     private String AUT; // (mobile) app under testing
-    protected String SUT; // site under testing
     private String TEST_PLATFORM;
     private String DRIVER;
     private String DEVICE_NAME;
@@ -81,8 +80,9 @@ public class DriverSetup extends TestProperties {
             File app = new File(AUT);
             capabilities.setCapability(APP, app.getAbsolutePath());
         } else if (SUT != null && AUT == null) {
-            // Web
+//            uncomment in case of error "No Chrome driver found"
 //            capabilities.setCapability("chromedriverExecutableDir", System.getProperty("user.dir") + "\\src\\main\\resources\\driver");
+            // Web
             capabilities.setCapability(BROWSER_NAME, browserName);
         } else {
             throw new Exception("Unclear type of mobile app");

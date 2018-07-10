@@ -1,10 +1,7 @@
 package com.epam.mobile.tests.webTests;
 
-import com.epam.mobile.pageObjects.nativeApp.ContactManagerApp.StartScreen;
 import com.epam.mobile.pageObjects.web.ianaOrg.HomePage;
 import com.epam.mobile.setup.DriverSetup;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.testng.Assert;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
@@ -14,6 +11,7 @@ import java.io.IOException;
 @Test(groups = "web")
 public class SimpleWebTest extends DriverSetup {
     HomePage homePage;
+
     protected SimpleWebTest() throws IOException {
         super();
     }
@@ -34,7 +32,7 @@ public class SimpleWebTest extends DriverSetup {
     @Test(description = "Open website")
     public void webTest() throws Exception {
 //        Step 1: Open site
-        homePage.open(SUT,driverWait());
+        homePage.open(SUT, driverWait());
 
 //        Step 2: Check Page URL
         homePage.checkUrl();
@@ -42,8 +40,8 @@ public class SimpleWebTest extends DriverSetup {
 //        Step 3: Check page Title
         homePage.checkPageTitle();
 
-//        Step 4: Check the header is Visible
-        homePage.checkPageHeaderIsVisible();
+//        Step 4: Check the panels are visible
+        homePage.checkMainPanelsAreVisible();
 
         System.out.println("Site was opened");
     }

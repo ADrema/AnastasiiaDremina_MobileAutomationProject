@@ -1,8 +1,8 @@
 package com.epam.mobile.enumObjects;
 
-public enum  BrowsersEnum {
+public enum BrowsersEnum {
     CHROME("Chrome"),
-        SAFARI("Safari");
+    SAFARI("Safari");
 
     public String browserName;
 

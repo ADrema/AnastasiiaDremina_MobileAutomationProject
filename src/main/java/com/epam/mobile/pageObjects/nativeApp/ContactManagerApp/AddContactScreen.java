@@ -1,10 +1,7 @@
 package com.epam.mobile.pageObjects.nativeApp.ContactManagerApp;
 
 import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.pagefactory.AndroidFindBy;
-import io.appium.java_client.pagefactory.iOSFindBy;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;

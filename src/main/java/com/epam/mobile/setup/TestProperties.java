@@ -9,7 +9,7 @@ public class TestProperties {
     Properties currentProps;
 
     Properties getCurrentProps() throws IOException {
-        if(currentProps != null){
+        if (currentProps != null) {
             return currentProps;
         }
         currentProps = new Properties();
