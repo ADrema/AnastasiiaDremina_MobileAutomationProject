@@ -1,4 +1,28 @@
 # AnastasiiaDremina_MobileAutomationProject
+Homework4
+1.	Add support of appPackage and appActivity parameters for Android devices (reading from a .properties file and then setting in the DesiredCapabilities). Locally installed Appium DT doesn’t need these parameters, but for Appium server of Mobile Farm (Minsk, SPb) it’s mandatory.
+2.	Change settings to run web test on a certain iOS device on Mobile Test Farm. Run test with your changes. Did test pass?
+The execution wasn’t successful. The issue should be investgated
+3.	Change settings to run native test on a certain/random Android device on Mobile Test Farm. Run test with your changes. Did test pass?
+The application should be installed before
+After that the test should be passed
+However, it didn’t. The issue also should be investigated
+4.	What’s wrong with our code? How to fix/improve it? Implement your suggestions.
+1. Current implementation contains 2 variables in .pom file:
+suiteXmlFile – to specify the  respective test-suite
+-	nativeTest.xml(default)
+-	webTest.xml
+propertyFile – to specify respective property file
+-	nativetest.properties(default)
+-	webfarm.properties
+-	webtest.properties
+How to trigger test-case execution (in terminal):
+mvn clean test -DsuiteXmlFile=webTest.xml -DpropertyFile=webtest.properties 
+2. Enum for Browsers were added 
+3. Page object pattern was implemented
+To improve:
+-	add more checks in both kind of test
+
 Homework3
 1.	Rewrite (complete) Driver using “singleton” pattern. Are there any advantages?
 The only one driver instance is created at the moment.
