@@ -13,6 +13,7 @@ Test was passed successfully
 3.	Change settings to run native test on a certain/random Android device on Mobile Test Farm. Run test with your changes. Did test pass?
 
 The application should be installed before
+
 Necessary parameters:
 - udud
 - appPackage
