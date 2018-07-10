@@ -1,5 +1,7 @@
 package com.epam.mobile.tests.webTests;
 
+import com.epam.mobile.pageObjects.nativeApp.ContactManagerApp.StartScreen;
+import com.epam.mobile.pageObjects.web.ianaOrg.HomePage;
 import com.epam.mobile.setup.DriverSetup;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
@@ -9,17 +11,17 @@ import org.testng.annotations.Test;
 
 import java.io.IOException;
 
-import static com.epam.mobile.enumObjects.PropertiesEnum.WEB_PROPERTIES;
-
 @Test(groups = "web")
 public class SimpleWebTest extends DriverSetup {
+    HomePage homePage;
     protected SimpleWebTest() throws IOException {
         super();
     }
 
     @BeforeSuite(description = "Prepare driver to run test(s)")
     public void setUp() throws Exception {
-        prepareDriver(WEB_PROPERTIES);
+        prepareDriver();
+        homePage = new HomePage(driver());
         System.out.println("DriverSetup is prepared");
     }
 
@@ -31,16 +33,18 @@ public class SimpleWebTest extends DriverSetup {
 
     @Test(description = "Open website")
     public void webTest() throws Exception {
-        driver().get(SUT);
-        driverWait().until(ExpectedConditions.urlToBe(SUT + "/"));
-        // Assert Title
-        Assert.assertEquals(driver().getTitle(), "Internet Assigned Numbers Authority");
-        // Assert the URL is correct
-        Assert.assertEquals(driver().getCurrentUrl(), "http://www.iana.org/");
+//        Step 1: Open site
+        homePage.open(SUT,driverWait());
 
-        // TODO Check response code
+//        Step 2: Check page Title
+        homePage.checkPageTitle();
+
+//        Step 3: Check Page URL
+        homePage.checkUrl();
+
+//        Step 4: Check the header is Visible
+        homePage.checkPageHeaderIsVisible();
+
         System.out.println("Site was opened");
-
-
     }
 }

@@ -10,7 +10,8 @@
 
     <properties>
         <aspectj.version>1.8.12</aspectj.version>
-        <suiteXmlFile>webTest.xml</suiteXmlFile>
+        <suiteXmlFile>nativeTest.xml</suiteXmlFile>
+        <propertyFile>nativetest.properties</propertyFile>
     </properties>
 
     <dependencies>
@@ -67,6 +68,9 @@
                     <suiteXmlFiles>
                         <suiteXmlFile>src/test/resources/${suiteXmlFile}</suiteXmlFile>
                     </suiteXmlFiles>
+                    <systemPropertyVariables>
+                        <property>src/main/resources/properties/${propertyFile}</property>
+                    </systemPropertyVariables>
                 </configuration>
             </plugin>
         </plugins>

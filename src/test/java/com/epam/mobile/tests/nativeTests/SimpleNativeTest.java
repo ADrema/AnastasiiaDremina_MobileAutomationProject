@@ -1,28 +1,29 @@
 package com.epam.mobile.tests.nativeTests;
 
+import com.epam.mobile.pageObjects.nativeApp.ContactManagerApp.AddContactScreen;
+import com.epam.mobile.pageObjects.nativeApp.ContactManagerApp.StartScreen;
 import com.epam.mobile.setup.DriverSetup;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
 
-import static com.epam.mobile.enumObjects.PropertiesEnum.NATIVE_PROPERTIES;
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
-
 @Test(groups = "native")
 public class SimpleNativeTest extends DriverSetup {
+    private StartScreen startScreen;
+    private AddContactScreen addContactScreen;
+
     protected SimpleNativeTest() throws IOException {
         super();
     }
 
     @BeforeSuite(description = "Prepare driver to run test(s)")
     public void setUp() throws Exception {
-        prepareDriver(NATIVE_PROPERTIES);
+        prepareDriver();
         System.out.println("DriverSetup is prepared");
+        startScreen = new StartScreen(driver());
+        addContactScreen = new AddContactScreen(driver());
     }
 
     @AfterSuite(description = "Close driver on all tests completion")
@@ -33,34 +34,39 @@ public class SimpleNativeTest extends DriverSetup {
 
     @Test(description = "Just click on button 'Add contact'")
     public void simplestTest() throws Exception {
-        String app_package_name = "com.example.android.contactmanager:id/";
-        By add_btn = By.id(app_package_name + "addContactButton");
-        driver().findElement(add_btn).click();
-        WebElement title = driver().findElement(By.id("android:id/title"));
-        assertEquals(title.getText(), "Add Contact");
-        WebElement targetAccountfield = driver().findElement(By.xpath("//android.widget.TextView[@content-desc=\"Target Account\"]"));
-        //Assert that Target Account has correct Text
-        assertEquals(targetAccountfield.getText(), "Target Account");
-        WebElement targetAccountDropDownMenu = driver().findElement(By.id("com.example.android.contactmanager:id/accountSpinner"));
-        //Assert that TargetAccoun Drop down menu is visible
-        assertTrue(targetAccountDropDownMenu.isDisplayed());
-        WebElement contactNameField = driver().findElement(By.id("com.example.android.contactmanager:id/contactNameEditText"));
-        //Assert contact field is visible
-        assertTrue(contactNameField.isDisplayed());
 
-        WebElement contactPhoneField = driver().findElement(By.id("com.example.android.contactmanager:id/contactPhoneEditText"));
-        //Assert phone field is visible
-        assertTrue(contactPhoneField.isDisplayed());
+//        Step 1: Check page title
+        startScreen.checkTitle();
 
-        WebElement contactEmailField = driver().findElement(By.id("com.example.android.contactmanager:id/contactEmailEditText"));
-        //Assert email field is visible
-        assertTrue(contactEmailField.isDisplayed());
+//        Step 2: Check that "Add Contact" button is visible
+        startScreen.checkAddButtonIsVisible();
 
-        WebElement saveButton = driver().findElement(By.id("com.example.android.contactmanager:id/contactSaveButton"));
-        //Assert button field is visible
-        assertTrue(saveButton.isDisplayed());
-        //Keyboard will be hidden if present
-        driver().hideKeyboard();
+//        Step 3: Click on "Add Contact" button
+        startScreen.clickOnAddBtn();
+
+//        Step 4: Check screen title
+        addContactScreen.checkScreenTitle();
+
+//        Step 5: Check "Target Account" field text
+        addContactScreen.checkTargetAccountFieldText();
+
+//        Step 6: Check that "Target Account" dropdown menu is Visible
+        addContactScreen.checkAccountDropDownMenuIsVisible();
+
+//        Step 7: Check that "Contact Name" field is Visible
+        addContactScreen.checkContactNameFieldIsVisible();
+
+//        Step 8: Check that "Contact Phone" field is visible
+        addContactScreen.checkContactPhoneFieldIsVisible();
+
+//        Step 9: Check that "Contact email" field is visible
+        addContactScreen.checkEmailFieldIsVisible();
+
+//        Step 10: Check that save button is Visible
+        addContactScreen.checkSaveButtonIsVisible();
+
+//        Step 11: Hide the keyboard
+        addContactScreen.hideKeyboard();
 
         System.out.println("Simplest Appium test done");
     }
