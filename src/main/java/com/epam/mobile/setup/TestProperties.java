@@ -13,7 +13,6 @@ public class TestProperties {
             return currentProps;
         }
         currentProps = new Properties();
-        System.out.println(System.getProperty("property"));
         FileInputStream in = new FileInputStream(System.getProperty("property"));
         currentProps.load(in);
         in.close();
