@@ -13,7 +13,6 @@ public class StartScreen {
     private By addButton = By.id("com.example.android.contactmanager:id/addContactButton");
 
     public StartScreen(AppiumDriver appiumDriver) {
-
         this.driver = appiumDriver;
     }
 
