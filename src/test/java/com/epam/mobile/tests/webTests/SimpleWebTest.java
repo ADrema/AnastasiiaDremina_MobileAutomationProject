@@ -36,11 +36,11 @@ public class SimpleWebTest extends DriverSetup {
 //        Step 1: Open site
         homePage.open(SUT,driverWait());
 
-//        Step 2: Check page Title
-        homePage.checkPageTitle();
-
-//        Step 3: Check Page URL
+//        Step 2: Check Page URL
         homePage.checkUrl();
+
+//        Step 3: Check page Title
+        homePage.checkPageTitle();
 
 //        Step 4: Check the header is Visible
         homePage.checkPageHeaderIsVisible();

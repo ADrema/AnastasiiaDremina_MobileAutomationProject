@@ -6,18 +6,21 @@ import java.util.Properties;
 
 public class TestProperties {
 
-    Properties currentProps = new Properties();
+    Properties currentProps;
 
     Properties getCurrentProps() throws IOException {
+        if(currentProps != null){
+            return currentProps;
+        }
+        currentProps = new Properties();
+        System.out.println(System.getProperty("property"));
         FileInputStream in = new FileInputStream(System.getProperty("property"));
         currentProps.load(in);
         in.close();
         return currentProps;
     }
 
-    protected String getProp(String propKey) throws IOException {
-        if (!currentProps.containsKey(propKey)) currentProps = getCurrentProps();
-        // "default" form used to handle the absence of parameter
-        return currentProps.getProperty(propKey, null);
+    public String getProp(String propKey) throws IOException {
+        return getCurrentProps().getProperty(propKey, null);
     }
 }

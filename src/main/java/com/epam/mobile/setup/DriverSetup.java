@@ -34,7 +34,6 @@ public class DriverSetup extends TestProperties {
     private String UDID;
     private String APP_PACKAGE;
     private String APP_ACTIVITY;
-    private String TEST_PLATFORM_VERSION;
 
     private Properties properties;
 
@@ -60,10 +59,13 @@ public class DriverSetup extends TestProperties {
         UDID = getProp("udid");
         APP_PACKAGE = getProp("appPackage");
         APP_ACTIVITY = getProp("appActivity");
-        TEST_PLATFORM_VERSION =  getProp("PlatformVersion");
         String browserName;
 
         capabilities = new DesiredCapabilities();
+        capabilities.setCapability("appPackage", APP_PACKAGE);
+        capabilities.setCapability("appActivity", APP_ACTIVITY);
+        capabilities.setCapability(MobileCapabilityType.UDID, UDID);
+        capabilities.setCapability(PLATFORM_NAME, TEST_PLATFORM);
 
 
         // Setup test platform: Android or iOS. Browser also depends on a platform.
@@ -79,17 +81,13 @@ public class DriverSetup extends TestProperties {
                 throw new Exception("Unknown mobile platform");
         }
 
-        capabilities.setCapability(PLATFORM_NAME, TEST_PLATFORM);
+
 
         // Setup type of application: mobile, webTests (or hybrid)
         if (AUT != null && SUT == null) {
             // Native
             File app = new File(AUT);
             capabilities.setCapability(APP, app.getAbsolutePath());
-            capabilities.setCapability("appPackage", APP_PACKAGE);
-            capabilities.setCapability("appActivity", APP_ACTIVITY);
-            capabilities.setCapability(PLATFORM_VERSION, TEST_PLATFORM_VERSION);
-            capabilities.setCapability(MobileCapabilityType.UDID, UDID);
         } else if (SUT != null && AUT == null) {
             // Web
             capabilities.setCapability("chromedriverExecutableDir", System.getProperty("user.dir") + "\\src\\main\\resources\\driver");
@@ -114,8 +112,6 @@ public class DriverSetup extends TestProperties {
             default:
                 throw new Exception("Unknown mobile platform");
         }
-
-
 
         // Set an object to handle timeouts
         if (waitSingle == null) {
