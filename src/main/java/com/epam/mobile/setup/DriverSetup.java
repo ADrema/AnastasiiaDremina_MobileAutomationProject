@@ -37,11 +37,6 @@ public class DriverSetup extends TestProperties {
 
     private Properties properties;
 
-    // Constructor initializes properties on driver creation
-    protected DriverSetup() throws IOException {
-
-    }
-
     /**
      * Initialize driver with appropriate capabilities depending on platform and application
      * * @throws Exception
@@ -67,12 +62,11 @@ public class DriverSetup extends TestProperties {
         capabilities.setCapability(MobileCapabilityType.UDID, UDID);
         capabilities.setCapability(PLATFORM_NAME, TEST_PLATFORM);
 
-
         // Setup test platform: Android or iOS. Browser also depends on a platform.
         switch (TEST_PLATFORM) {
             case "Android":
-                capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, DEVICE_NAME); // default Android emulator
                 browserName = CHROME.browserName;
+                capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, DEVICE_NAME); // default Android emulator
                 break;
             case "iOS":
                 browserName = SAFARI.browserName;
@@ -81,8 +75,6 @@ public class DriverSetup extends TestProperties {
                 throw new Exception("Unknown mobile platform");
         }
 
-
-
         // Setup type of application: mobile, webTests (or hybrid)
         if (AUT != null && SUT == null) {
             // Native
@@ -90,16 +82,11 @@ public class DriverSetup extends TestProperties {
             capabilities.setCapability(APP, app.getAbsolutePath());
         } else if (SUT != null && AUT == null) {
             // Web
-            capabilities.setCapability("chromedriverExecutableDir", System.getProperty("user.dir") + "\\src\\main\\resources\\driver");
+//            capabilities.setCapability("chromedriverExecutableDir", System.getProperty("user.dir") + "\\src\\main\\resources\\driver");
             capabilities.setCapability(BROWSER_NAME, browserName);
         } else {
             throw new Exception("Unclear type of mobile app");
         }
-        // Init driver for local Appium server with capabilities have been set
-        if (driverSingle == null) {
-            driverSingle = new AppiumDriver(new URL(DRIVER), capabilities);
-        }
-
 
         // Init driver for local Appium server with capabilities
         switch (TEST_PLATFORM) {
