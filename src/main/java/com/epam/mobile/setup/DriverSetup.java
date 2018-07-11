@@ -1,5 +1,7 @@
 package com.epam.mobile.setup;
 
+import com.epam.mobile.enumObjects.ErrorMessagesEnum;
+import com.epam.mobile.enumObjects.PropertiesEnum;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.ios.IOSDriver;
@@ -13,6 +15,8 @@ import java.util.Properties;
 
 import static com.epam.mobile.enumObjects.BrowsersEnum.CHROME;
 import static com.epam.mobile.enumObjects.BrowsersEnum.SAFARI;
+import static com.epam.mobile.enumObjects.ErrorMessagesEnum.*;
+import static com.epam.mobile.enumObjects.PropertiesEnum.*;
 import static io.appium.java_client.remote.MobileCapabilityType.*;
 
 /**
@@ -43,21 +47,21 @@ public class DriverSetup extends TestProperties {
     protected void prepareDriver() throws Exception {
 
         String resourcePath = "src/main/resources/";
-        String mobileAppName = getProp("aut");
+        String mobileAppName = getProp(PropertiesEnum.AUT.value);
         AUT = mobileAppName == null ? null : resourcePath + mobileAppName;
-        String t_sut = getProp("sut");
+        String t_sut = getProp(PropertiesEnum.SUT.value);
         SUT = t_sut == null ? null : "https://" + t_sut;
-        TEST_PLATFORM = getProp("platform");
-        DRIVER = getProp("driver");
-        DEVICE_NAME = getProp("deviceName");
-        UDID = getProp("udid");
-        APP_PACKAGE = getProp("appPackage");
-        APP_ACTIVITY = getProp("appActivity");
+        TEST_PLATFORM = getProp(PropertiesEnum.TEST_PLATFORM.value);
+        DRIVER = getProp(PropertiesEnum.DRIVER.value);
+        DEVICE_NAME = getProp(PropertiesEnum.DEVICE_NAME.value);
+        UDID = getProp(PropertiesEnum.UDID.value);
+        APP_PACKAGE = getProp(PropertiesEnum.APP_PACKAGE.value);
+        APP_ACTIVITY = getProp(PropertiesEnum.APP_ACTIVITY.value);
         String browserName;
 
         capabilities = new DesiredCapabilities();
-        capabilities.setCapability("appPackage", APP_PACKAGE);
-        capabilities.setCapability("appActivity", APP_ACTIVITY);
+        capabilities.setCapability(PropertiesEnum.APP_PACKAGE.value, APP_PACKAGE);
+        capabilities.setCapability(PropertiesEnum.APP_ACTIVITY.value, APP_ACTIVITY);
         capabilities.setCapability(MobileCapabilityType.UDID, UDID);
         capabilities.setCapability(PLATFORM_NAME, TEST_PLATFORM);
 
@@ -71,7 +75,7 @@ public class DriverSetup extends TestProperties {
                 browserName = SAFARI.browserName;
                 break;
             default:
-                throw new Exception("Unknown mobile platform");
+                throw new Exception(UNKNOWN_PLATFORM.value);
         }
 
         // Setup type of application: mobile, webTests (or hybrid)
@@ -85,7 +89,7 @@ public class DriverSetup extends TestProperties {
             // Web
             capabilities.setCapability(BROWSER_NAME, browserName);
         } else {
-            throw new Exception("Unclear type of mobile app");
+            throw new Exception(UNKNOWN_APPLICATION.value);
         }
 
         // Init driver for local Appium server with capabilities
@@ -97,7 +101,7 @@ public class DriverSetup extends TestProperties {
                 driverSingle = new IOSDriver(new URL(DRIVER), capabilities);
                 break;
             default:
-                throw new Exception("Unknown mobile platform");
+                throw new Exception(UNKNOWN_PLATFORM.value);
         }
 
         // Set an object to handle timeouts

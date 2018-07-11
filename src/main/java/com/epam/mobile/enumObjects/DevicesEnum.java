@@ -4,9 +4,9 @@ public enum DevicesEnum {
     ANDROID("Android"),
     IOS("iOS");
 
-    public String deviceOS;
+    public String value;
 
-    DevicesEnum(String deviceOS) {
-        this.deviceOS = deviceOS;
+    DevicesEnum(String value) {
+        this.value = value;
     }
 }
